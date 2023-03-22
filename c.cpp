@@ -122,3 +122,13 @@ element::~element(element a){
 	p->next=q;
 	delete a;
 }
+
+ostream& operator<< (ostream& out, const element& elem)
+{
+    element *p=head;
+		while(p){
+			out <<p.inf<<'\n'; 
+			p=p->next;
+		}
+    return out;
+}

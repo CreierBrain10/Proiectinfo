@@ -15,6 +15,7 @@ class element{
 	void deleteFirstInf(int a);
 	void deleteLastInf(int a);
 	void operator+=(element a, element b);
+	friend ostream& operator<< (ostream& out, const element& elem);
 	}
 
 #endif
