@@ -1,2 +1,2 @@
-#include "c.cpp"
+#include <c.h>
 using namespace std;
