@@ -1,62 +1,98 @@
-#include <c.h>
+#include "c.h"
+#include <iostream>
 using namespace std;
-element *head=NULL, *tail=NULL;
 
-void element::addFront(int a){
-	element *p=new element;
-	p->inf=a;
-	p->next=head;
-	p->next->prev=p;
-	if(head->next==NULL) tail=head;
+void list::deleteFirstNod(){
+nod*p=head;
+head->next->prev=NULL;
+head=head->next;
+delete p;
 }
 
-void element::addBack(int a){
-	if(head==NULL) {addFront(a); return}
-	element *p=new element;
+void list::deleteLastNod(){
+nod*p=tail;
+tail->prev->next=NULL;
+tail=tail->prev;
+delete p;
+}
+
+void list::addFront(int a){
+	nod *p=new nod;
+	p->inf=a;
+	p->next=head;
+	head->prev=p;
+	head=p;
+}
+
+void list::addBack(int a){
+	nod *p=new nod;
+	p->inf=a;
 	p->prev=tail;
 	tail->next=p;
 	tail=p;
 }
 
-element element::search(int a){
-	element *p=head;
+void list::copyNod(nod a){
+	if(!head) addFront(a.inf);
+		else addBack(a.inf);
+}
+
+list list::search(int a){
+	nod*p=head;
 	while(p){
-		if(a==p->inf) return p;
+		if(p->inf==a) return p;
 		p=p->next;
 	}
 }
 
-void element::deleteAllInf(int a){
-	element *p=head;
-	if(p->inf==a) ~element(p);
+void list::deleteAllInf(int a){
+	nod*p=head;
 	while(p){
 		if(p->inf==a){
-			p=p->prev;
-			~element(p->next);
+			if(p==head) deleteFirstNod();
+			else if(p==tail) deleteLastNod();
+			else{
+				p=p->prev;
+				nod *q=p->next;
+				p->next=q->next;
+				q->next->prev=p;
+				delete q;
+			}
 		}
 		p=p->next;
 	}
 }
 
-void element::deleteFirstInf(int a){
-		element *p=head;
-	while(p->inf!=a){
-		p=p->next;
+void list::deleteFirstInf(int a){
+	nod *p=head;
+	if(p->inf==a){
+		if(p==head)
+		p=p->prev;
+		nod*q=p->next;
+		q->next->prev=p;
+		p->next=q->next;
+		delete q;
 	}
-	~element(p);
 }
 
-void element::deleteLastInf(int a){
-	element *p=tail;
-	while(p->inf!=a){
+void list::deleteLastInf(int a){
+	nod *p=tail;
+	while(p){
+		if(p->inf){
+			if(p==head) deleteFirstNod();
+			p=p->prev;
+			nod*q=p->next;
+			q->next->prev=p;
+			p->next=q->next;
+			delete q;
+		}
 		p=p->prev;
 	}
-	~element(p);
+
 }
 
-void element::operator+=(element b){
-	element *p=tail;
-	p->next=b.head;
+void list::operator+=(list b){
+
 }
 
 void meniu(){
@@ -65,67 +101,64 @@ void meniu(){
   cout<<3<<"Adaugarea unui nod in lista "<<'\n'; //la inceput sau final
   cout<<4<<"Stergerea tuturor nodurilor cu o anumita valoare"<<'\n';
   cout<<5<<"Concatenarea a doua liste"<<'\n';
-  cout<<8<<"Iesire din program"<<'\n';
+  cout<<6<<"Iesire din program"<<'\n';
 }
 
 void select(){
-  int n;
+	int n;
   cin>>n;
   switch (n){
     case (1):
 
-     break;
+      break;
     case (2):
 
-     break;
+      break;
     case (3):
 
-     break;
+      break;
     case (4):
 
-     break;
+      break;
     case (5):
 
-     break;
+      break;
     case (6):
-
-     break;
-    case (7):
-
-     break;
-    case (8):
-
-     break;
-    default:
-    break
+			exit(0);
+      break;
+		default:
+			break;
   }
 }
 
-element::element(int a){
-	element *p=new element;
-		p->inf=a, p->next=NULL,p->prev-NULL;
-  }
+list::list(int a){
+	nod*p=new nod;
+	p->inf=a;
+	p->next=p->prev=NULL;
+	head=tail=p;
+}
 
-element::element(element a){
-    inf=a.inf;
-    next=a.next;
-     prev=a.prev;
-  }
-
-element::~element(element a){
-	element *p=head;
-	while(p!=a){
+list::list(list a){
+	nod*p=a.head;
+	while(p){
+		copyNod(*p);
 		p=p->next;
 	}
-	element *q=next;
-	q->prev=p;
-	p->next=q;
-	delete a;
 }
 
-ostream& operator<< (ostream& out, const element& elem)
+list::~list(list a){
+	nod *p=tail;
+	while(p){
+		p=p->prev;
+		delete p->next;
+	}
+	if(head) delete head;
+	head=tail=NULL;
+}
+
+ostream& operator<< (ostream& out, const list& elem)
 {
-    element *p=head;
+    list *p=head;
 		while(p){
 			out <<p.inf<<'\n'; 
 			p=p->next;
