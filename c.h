@@ -7,11 +7,11 @@ class list{
   private: nod *head, *tail;
   public:
   list(int a);
-  list(list a);
+  list(const list& a);
   ~list();
 	void copyNod(nod a);
 	int esteVida(list a){return head==NULL;}
-	list search(int a);
+	nod search(int a);
 	void addFront(int a);
 	void addBack(int a);
 	void deleteFirstNod();
@@ -19,7 +19,8 @@ class list{
 	void deleteAllInf(int a);
 	void deleteFirstInf(int a);
 	void deleteLastInf(int a);
-	void operator+=(list a, list b);
-	friend ostream& operator<< (ostream& out, const list& elem);
-	};
+	list operator+=(list b);
+};
+	/*friend ostream& operator<< (ostream& out, const list& elem);
+	*/
 #endif

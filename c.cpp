@@ -37,10 +37,10 @@ void list::copyNod(nod a){
 		else addBack(a.inf);
 }
 
-list list::search(int a){
+nod list::search(int a){
 	nod*p=head;
 	while(p){
-		if(p->inf==a) return p;
+		if(p->inf==a) return *p;
 		p=p->next;
 	}
 }
@@ -91,7 +91,14 @@ void list::deleteLastInf(int a){
 
 }
 
-void list::operator+=(list b){
+list list::operator+=(list b){
+list c(b);
+nod*p=tail;
+while(p){
+	c.addFront(p->inf);
+	p=p->prev;
+}
+return c;
 
 }
 
@@ -138,7 +145,7 @@ list::list(int a){
 	head=tail=p;
 }
 
-list::list(list a){
+list::list(const list& a){
 	nod*p=a.head;
 	while(p){
 		copyNod(*p);
@@ -146,7 +153,7 @@ list::list(list a){
 	}
 }
 
-list::~list(list a){
+list::~list(){
 	nod *p=tail;
 	while(p){
 		p=p->prev;
@@ -156,12 +163,12 @@ list::~list(list a){
 	head=tail=NULL;
 }
 
-ostream& operator<< (ostream& out, const list& elem)
+/*ostream& operator<< (ostream& out, const list& elem)
 {
-    list *p=head;
+    nod *p=elem.head;
 		while(p){
-			out <<p.inf<<'\n'; 
+			out <<p->inf<<'\n'; 
 			p=p->next;
 		}
     return out;
-}
+}*/
