@@ -1,5 +1,5 @@
 #include "c.h"
-#include <iostream>
+#include <iostream> 
 using namespace std;
 
 void list::deleteFirstNod(){
@@ -37,12 +37,13 @@ void list::copyNod(nod a){
 		else addBack(a.inf);
 }
 
-nod list::search(int a){
+nod* list::search(int a){
 	nod*p=head;
 	while(p){
-		if(p->inf==a) return *p;
+		if(p->inf==a) return p;
 		p=p->next;
 	}
+	return nullptr;
 }
 
 void list::deleteAllInf(int a){
@@ -102,44 +103,8 @@ return c;
 
 }
 
-void meniu(){
-  cout<<1<<"Verificare daca lista este vida"<<'\n';
-  cout<<2<<"Cautarea unui nod in lista"<<'\n';
-  cout<<3<<"Adaugarea unui nod in lista "<<'\n'; //la inceput sau final
-  cout<<4<<"Stergerea tuturor nodurilor cu o anumita valoare"<<'\n';
-  cout<<5<<"Concatenarea a doua liste"<<'\n';
-  cout<<6<<"Iesire din program"<<'\n';
-}
-
-void select(){
-	int n;
-  cin>>n;
-  switch (n){
-    case (1):
-
-      break;
-    case (2):
-
-      break;
-    case (3):
-
-      break;
-    case (4):
-
-      break;
-    case (5):
-
-      break;
-    case (6):
-			exit(0);
-      break;
-		default:
-			break;
-  }
-}
-
 list::list(int a){
-	nod*p=new nod;
+	nod *p=new nod;
 	p->inf=a;
 	p->next=p->prev=NULL;
 	head=tail=p;
