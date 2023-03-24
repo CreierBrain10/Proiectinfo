@@ -6,5 +6,5 @@ using namespace std;
 int main()
 {
 	selectList();
-	meniu();
+	cout<<selectedList;
 }

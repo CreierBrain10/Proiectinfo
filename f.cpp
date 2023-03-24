@@ -17,6 +17,7 @@ void selectList();
 //endfuncitons
 
 void select(){
+	selectList();
 	int n;
   cin>>n;
   clear();
