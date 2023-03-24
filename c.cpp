@@ -7,6 +7,7 @@ nod*p=head;
 head->next->prev=NULL;
 head=head->next;
 delete p;
+num();
 }
 
 void list::deleteLastNod(){
@@ -14,6 +15,7 @@ nod*p=tail;
 tail->prev->next=NULL;
 tail=tail->prev;
 delete p;
+num();
 }
 
 void list::addFront(int a){
@@ -22,6 +24,7 @@ void list::addFront(int a){
 	p->next=head;
 	head->prev=p;
 	head=p;
+	num();
 }
 
 void list::addBack(int a){
@@ -30,20 +33,56 @@ void list::addBack(int a){
 	p->prev=tail;
 	tail->next=p;
 	tail=p;
+	num();
 }
 
 void list::copyNod(nod a){
 	if(!head) addFront(a.inf);
 		else addBack(a.inf);
+		num();
 }
 
 nod* list::search(int a){
-	nod*p=head;
+	nod *p=head;
 	while(p){
 		if(p->inf==a) return p;
 		p=p->next;
 	}
 	return nullptr;
+}
+
+void list::insertBefore(int a, int b){
+	nod*p=new nod;
+	if(head->inf==b) addFront(b);
+	nod*q=head;
+	while(q)
+	{
+		if(q->next->inf==b){
+			p->next=q->next;
+			q->next->prev=p;
+			p->prev=q;
+			q->next=p;
+			return;
+		}
+		p=p->next;
+	}
+}
+
+void list::insertAfter(int a, int b){
+	nod*p=new nod;
+	if(tail->inf==b) addBack(b);
+	while(q)
+	{
+		if(q->next->inf==b){
+			p->next=q->next;
+			q->next->prev=p;
+			p->prev=q;
+			q->next=p;
+			return;
+		}
+		p=p->next;
+	}
+
 }
 
 void list::deleteAllInf(int a){
@@ -62,6 +101,7 @@ void list::deleteAllInf(int a){
 		}
 		p=p->next;
 	}
+	num();
 }
 
 void list::deleteFirstInf(int a){
@@ -74,6 +114,7 @@ void list::deleteFirstInf(int a){
 		p->next=q->next;
 		delete q;
 	}
+	num();
 }
 
 void list::deleteLastInf(int a){
@@ -100,7 +141,7 @@ while(p){
 	p=p->prev;
 }
 return c;
-
+	c.num();
 }
 
 list::list(int a){

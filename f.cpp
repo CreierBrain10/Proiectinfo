@@ -23,28 +23,54 @@ void select(){
   clear();
   switch (n){
     case (1):
+			if(selectedList->esteVida()) cout<<"\nLista este vida\n";
+				else cout<<"Lista nu este vida\n";
       break;
     case (2):
 		int x;
 		cout<<"Nodul cautat: ";
 		cin>>x;
-
+		if(!selectedList->search(x)) cout<<"\nNodul "<<x<<" nu exista in lista selectata\n";
+			else {
+				cout<<"Nodul se afla in lista, intre elementele "<<selectedList->search(x)->prev<<" si "<<selectedList->search(x)->next<<"\n";
+			}
       break;
     case (3):
+			cout<<"1) pentru adaugare la inceput\n"<<"2) pentru adaugare la final\n";
+			int x;
+			cin>>x;
+			switch (x)
+			{
+								int numar;
+				cout<< "numarul care trebuie adaugat: ";
+				cin>>numar;
+			case (1):
+				selectedList->addFront(numar);
+				break;
+			
+			case (2):
+				selectedList->addBack(numar);
+				break;
+			}
 
       break;
-    case (4):
+		case (4):
+			cout<<"1) pentru adaugare inaintea un element\n"<<"2) pentru adaugare dupa un element\n";
+			break;
 
-      break;
     case (5):
 
       break;
     case (6):
+
+      break;
+    case (7):
 			exit(0);
       break;
 		default:
 			break;
   }
+	backOrExit();
 }
 
 void backOrExit(){
@@ -78,9 +104,10 @@ void clear(){
 void meniu(){
   cout<<1<<") Verificare daca lista este vida"<<'\n';
   cout<<2<<") Cautarea unui nod in lista"<<'\n';
-  cout<<3<<") Adaugarea unui nod in lista "<<'\n'; //la inceput sau final
-  cout<<4<<") Stergerea tuturor nodurilor cu o anumita valoare"<<'\n';
-  cout<<5<<") Concatenarea a doua liste"<<'\n';
-  cout<<6<<") Iesire din program"<<'\n';
+  cout<<3<<") Adaugarea unui nod in lista"<<'\n'; //la inceput sau final
+	cout<<4<<") Inserarea unui nod in lista"<<'\n'; //inainte / dupa un element
+  cout<<5<<") Stergerea tuturor nodurilor cu o anumita valoare"<<'\n';
+  cout<<6<<") Concatenarea a doua liste"<<'\n';
+  cout<<7<<") Iesire din program"<<'\n';
 	select();
 }
