@@ -1,9 +1,5 @@
 #include "c.cpp"
 #include <iostream>
-#ifdef _WIN32
-#define cls clear
-#include <windows.h>
-#endif
 using namespace std;
 list a, b;
 list *selectedList=nullptr;
@@ -12,13 +8,12 @@ list *selectedList=nullptr;
 void select();
 void backOrExit();
 void meniu();
-void clear();
 void selectList();
+void clear();
 //endfuncitons
 
 void select(){
-	selectList();
-	int n;
+	int n,x,numar;
   cin>>n;
   clear();
   switch (n){
@@ -27,7 +22,6 @@ void select(){
 				else cout<<"Lista nu este vida\n";
       break;
     case (2):
-		int x;
 		cout<<"Nodul cautat: ";
 		cin>>x;
 		if(!selectedList->search(x)) cout<<"\nNodul "<<x<<" nu exista in lista selectata\n";
@@ -37,25 +31,37 @@ void select(){
       break;
     case (3):
 			cout<<"1) pentru adaugare la inceput\n"<<"2) pentru adaugare la final\n";
-			int x;
 			cin>>x;
-			switch (x)
-			{
-								int numar;
-				cout<< "numarul care trebuie adaugat: ";
+				cout<< "Numarul care trebuie adaugat: ";
 				cin>>numar;
-			case (1):
-				selectedList->addFront(numar);
-				break;
+			if(x==1)
+				{selectedList->addFront(numar);
+				break;}
 			
-			case (2):
-				selectedList->addBack(numar);
-				break;
-			}
+			else
+				{selectedList->addBack(numar);
+				break;}
 
       break;
 		case (4):
 			cout<<"1) pentru adaugare inaintea un element\n"<<"2) pentru adaugare dupa un element\n";
+			int reper;
+			cin>>x;
+			if(x==1){
+				cout<<"Numarul inaintea caruia se va insera noul nod: ";
+				cin>>reper;
+				cout<<"\nNumarul ce trebuie inserat: ";
+				cin>>numar;
+				selectedList->insertBefore(numar,reper);
+			}
+			else{
+				cout<<"Numarul dupa care se va insera noul nod: ";
+				cin>>reper;
+				cout<<"\nNumarul ce trebuie inserat: ";
+				cin>>numar;
+				selectedList->insertBefore(numar,reper);
+			}
+			selectedList->insertBefore(numar,reper);
 			break;
 
     case (5):
@@ -64,7 +70,11 @@ void select(){
     case (6):
 
       break;
-    case (7):
+		case (7):
+			clear();
+			selectedList->afis();
+			break;
+    case (8):
 			exit(0);
       break;
 		default:
@@ -90,24 +100,32 @@ void backOrExit(){
 
 void selectList(){
 	int x;
-	cout<<"Selectati lista pe care efectuati operatia: \n";
+	cout<<"\nSelectati lista pe care efectuati operatiile: \n";
 	cout<<"1) pentru prima lista"<<"\n2) pentru a doua lista\n";
 	cin>>x;
 	if(x==1) selectedList=&a;
 	else selectedList=&b;
-}
-
-void clear(){
-	system("clear");
+	clear();
 }
 
 void meniu(){
+	clear();
+	selectList();
   cout<<1<<") Verificare daca lista este vida"<<'\n';
   cout<<2<<") Cautarea unui nod in lista"<<'\n';
   cout<<3<<") Adaugarea unui nod in lista"<<'\n'; //la inceput sau final
 	cout<<4<<") Inserarea unui nod in lista"<<'\n'; //inainte / dupa un element
   cout<<5<<") Stergerea tuturor nodurilor cu o anumita valoare"<<'\n';
   cout<<6<<") Concatenarea a doua liste"<<'\n';
-  cout<<7<<") Iesire din program"<<'\n';
+	cout<<7<<") Afisarea listei"<<"\n";
+  cout<<8<<") Iesire din program"<<'\n';
 	select();
+}
+
+void clear(){
+#ifdef _WIN32
+	system("cls");
+	#else 
+	system("clear");
+#endif
 }

@@ -23,6 +23,7 @@ class list{
 	void deleteAllInf(int a);
 	void deleteFirstInf(int a);
 	void deleteLastInf(int a);
+	void afis();
 	list operator+=(list b);
 };
 	/*friend ostream& operator<< (ostream& out, const list& elem);

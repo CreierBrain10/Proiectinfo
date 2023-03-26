@@ -52,16 +52,17 @@ nod* list::search(int a){
 }
 
 void list::insertBefore(int a, int b){
-	nod*p=new nod;
 	if(head->inf==b) addFront(b);
+	nod*p=new nod;
 	nod*q=head;
 	while(q)
 	{
 		if(q->next->inf==b){
+			p->inf=a;
 			p->next=q->next;
-			q->next->prev=p;
 			p->prev=q;
 			q->next=p;
+			p->next->prev=p;
 			return;
 		}
 		p=p->next;
@@ -69,11 +70,13 @@ void list::insertBefore(int a, int b){
 }
 
 void list::insertAfter(int a, int b){
-	nod*p=new nod;
 	if(tail->inf==b) addBack(b);
+		nod*p=new nod;
+		nod*q=head;
 	while(q)
 	{
 		if(q->next->inf==b){
+			p->inf=a;
 			p->next=q->next;
 			q->next->prev=p;
 			p->prev=q;
@@ -131,6 +134,14 @@ void list::deleteLastInf(int a){
 		p=p->prev;
 	}
 
+}
+
+void list::afis(){
+	nod*p=head;
+	while(p){
+		cout<<p->inf<<'\n';
+		p=p->next;
+	}
 }
 
 list list::operator+=(list b){
