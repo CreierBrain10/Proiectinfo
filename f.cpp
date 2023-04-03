@@ -1,6 +1,10 @@
 #include "c.cpp"
 #include <iostream>
 #include <fstream>
+ifstream fina("lists/lista.txt");
+ofstream fouta("lists/lista.txt");
+ifstream finb("lists/listb.txt");
+ofstream foutb("lists/listb.txt");
 using namespace std;
 list a, b;
 list *selectedList=nullptr;
@@ -11,6 +15,8 @@ void backOrExit();
 void meniu();
 void selectList();
 void clear();
+void initFromFile();
+void saveToFile();
 //endfuncitons
 
 void select(){
@@ -81,6 +87,38 @@ void meniu(){
 	cout<<7<<") Schimbarea listei\n";
   cout<<8<<") Iesire din program\n";
 	select();
+}
+
+void initFromFile(){
+	if(selectedList==&a){
+		int x;
+		while(fina>>x){
+			a.addBack(x);
+		}
+		else{
+			int x;
+		while(finb>>x){
+			b.addBack(x);
+			}
+		}
+	}
+}
+
+void saveToFile(){
+	if(selectedList==&a){
+		nod*p=a.head;
+		while(p){
+			fouta<<p->inf<<'\n';
+			p=p->next;
+		}
+	}
+	else{
+		nod*p=b.head;
+		while(p){
+			foutb<<p->inf<<'\n';
+			p=p->next;
+		}
+	}
 }
 
 void clear(){

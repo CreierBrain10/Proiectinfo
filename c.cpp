@@ -148,10 +148,6 @@ list::list(int a){
 	head=tail=p;
 }
 
-list::list(const list& b){
-
-}
-
 list::~list(){
 	nod *p=tail;
 	while(p){
@@ -160,6 +156,14 @@ list::~list(){
 	}
 	if(head) delete head;
 	head=tail=NULL;
+}
+
+list::list(const list& b){
+	~list();
+	nod*p=b.head;
+	while(p){
+		addFront(p->inf);
+	}
 }
 
 /*ostream& operator<< (ostream& out, const list& elem)
