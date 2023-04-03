@@ -11,20 +11,19 @@ class list{
   list(const list& a);
   ~list();
 	void num(){nod*p=head;p->nr=1;p=p->next;while(p){p->nr=p->prev->nr+1;}}
-	void copyNod(nod a);
 	int esteVida(){return head==NULL;}
 	nod* search(int a);
 	void addFront(int a);
 	void addBack(int a);
-	void insertBefore(int a, int b);
-	void insertAfter(int a, int b);
+	void insertBefore(int a, int reper);
+	void insertAfter(int a, int reper);
 	void deleteFirstNod();
 	void deleteLastNod();
 	void deleteAllInf(int a);
 	void deleteFirstInf(int a);
 	void deleteLastInf(int a);
 	void afis();
-	list operator+=(list b);
+	void operator+=(list b);
 };
 	/*friend ostream& operator<< (ostream& out, const list& elem);
 	*/
